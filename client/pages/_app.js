@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css"; // global css
 
 import buildClient from "../api/build-client";
 import { handleAxiosError } from "../api/handle-exios-error";
+import Header from "../components/header";
 
 // a layout component that wraps around all your page components
 
@@ -11,7 +12,8 @@ import { handleAxiosError } from "../api/handle-exios-error";
 // spread operator {...pageProps} is used to pass down all properties of pageProps as individual props to the Component.
 const AppComponent = ({Component, pageProps, currentUser}) => {
     return <div>
-        <h1>Header! {currentUser && currentUser.email}</h1>
+        {/*h1>Header! {currentUser && currentUser.email}</h1>*/}
+        <Header currentUser = {currentUser} />
         < Component {...pageProps} />
     </div>;
 };
