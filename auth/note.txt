@@ -1,0 +1,6 @@
+jwt: {
+    id;
+    email;
+}, process.env.JWT_KEY is the signing key
+
+jwt contained in cookies: server rendered html

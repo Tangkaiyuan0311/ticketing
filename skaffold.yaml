@@ -1,0 +1,31 @@
+apiVersion: skaffold/v4beta3
+kind: Config
+manifests:
+  rawYaml:
+    - ./infra/k8s/*
+    # make skaffold to watch for changes in those files, re-apply xxx.yaml if changes happen
+    # apply all those yaml on skaffold start-up, delete all associated k8s objets on stopping
+build:
+  local:
+    push: false # default: push to dockerhub each time there is images update
+  artifacts: # what is needed to be monitored in the cluster
+    - image: tky12314/auth
+      context: auth # the directory that is monitored for file update
+      sync:
+        manual:
+          # skaffold will directly copy those matched, updated file into the base directory of container of runing pod.
+          # For other updated and unmatched files, rebuild the image, deploy and service
+          - src: "src/**/*.ts"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: tky12314/client
+      context: client # the directory that is monitored for file update
+      sync:
+        manual:
+          # skaffold will directly copy those matched, updated file into the base directory of container of runing pod.
+          # For other updated and unmatched files, rebuild the image, deploy and service
+          - src: "**/*.js"
+            dest: .
+      docker:
+        dockerfile: Dockerfile

@@ -1,0 +1,36 @@
+# ingress-nginx create a Load Balancer Service + an Ingress controller for us
+
+# routing rules for ingress controller
+apiVersion: networking.k8s.io/v1
+
+kind: Ingress
+
+metadata:
+  name: ingress-srv
+  # let the ingress controller know that we are feeding some routing rules
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    #spec.ingressClassName: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+
+spec:
+  rules:
+    # we can host multiple app domain in a single kubernete cluster.
+
+    - host: ticketing.dev #For dev purpose, we need to redirect ticketing.dev to 127.0.0.1
+      http:
+        paths: # specift a list of ingress mapping
+          - path: /api/users/?(.*) # url reach out from browser,
+            pathType: ImplementationSpecific # Prefix if no reg in path
+            backend: # cluster ip end (clusterIP service name, exposed port number)
+              service:
+                name: auth-srv
+                port:
+                  number: 3000
+          - path: /?(.*) # url reach out from browser,
+            pathType: ImplementationSpecific # Prefix if no reg in path
+            backend: # cluster ip end (clusterIP service name, exposed port number)
+              service:
+                name: client-srv
+                port:
+                  number: 3000

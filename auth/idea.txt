@@ -1,0 +1,6 @@
+url                     request body
+/api/users/signup       {email, password}
+/api/users/signin       {email, password}
+/api/users/signout      {}
+/api/users/currentuser  {}
+

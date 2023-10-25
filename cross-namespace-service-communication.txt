@@ -1,0 +1,6 @@
+kubectl get namespace // get all namespaces
+
+kubectl get service -n <NAMESPACE> // get all services under selected  NAMESPACE
+
+baseUrl: http://<SERVICENAME><NAMESPACE>.svc.cluster.local
+

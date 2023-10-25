@@ -1,0 +1,57 @@
+######## create deploy
+apiVersion: apps/v1 # default list of objects k8s will look at
+
+kind: Deployment # type of object to create
+
+metadata: # config option for the object
+  name: client-depl # deployment name
+
+# exact attribute to apply to the object, the behavior
+spec:
+  replicas: 1 # number of pods to be managed
+
+  # look into all the different pods created, find all the pods with label app: xxx
+  selector:
+    matchLabels:
+      app: client
+  # apply configuration to the pod we want to create
+  template:
+    metadata:
+      # we want the pods created to have label app: xxx
+      labels:
+        app: client
+    spec:
+      containers: # can be an array of containers
+        - name: client # container name
+          image: tky12314/client # image, if tagged latest: k8s will look into the dockerhub by default
+          #imagePullPolicy: Never # ensure that Kubernetes will use the image built locally from your image cache instead of attempting to pull from a registry
+
+# kubectl apply -f xxx-depl.yaml
+# kubectl rollout restart deployment xxx-depl (prefered for image update)
+############################################################################################################
+############################################################################################################
+############################################################################################################
+# create clusterIP service
+---
+# ClusterIP service for auth service
+
+apiVersion: v1 # default list of objects k8s will look at
+
+kind: Service # type of object to create
+
+metadata: # config option for the object
+  name: client-srv # service name
+
+# exact attribute to apply to the object, the behavior
+spec:
+  type: ClusterIP # communication in the cluster
+
+  # look into all the different pods created, find all the pods with label app: xxx
+  selector:
+    app: client
+  # list all the port numbers of the pods we want to expose
+  ports:
+    - name: client # logging purpose
+      protocol: TCP
+      port: 3000 # the port exposed in the cluster
+      targetPort: 3000 # the actual port that listens in the pod
