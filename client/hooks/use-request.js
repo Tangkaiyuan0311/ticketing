@@ -6,6 +6,8 @@ import { handleAxiosError } from "../api/handle-exios-error";
 // a hook is just a function with inputs, maintains states, and export some function and variables
 // handling making http request through axios
 // hooks can only be used in components
+
+// make request from the browser
 export default ({url, method, body, onSuccessRoute}) => {
     const [errors, setErrors] = useState(null); // rendered error responses
     

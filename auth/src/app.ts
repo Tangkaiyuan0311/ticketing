@@ -36,7 +36,7 @@ app.use(signoutRouter);
 
 // handle error in async fun
 app.all("*", async (req, res, next) => {
-    next(new RouteNotFoundError());
+    next(new RouteNotFoundError(req.protocol + '://' + req.get('host') + req.originalUrl));
 })
 
 app.use(errorHandler);
