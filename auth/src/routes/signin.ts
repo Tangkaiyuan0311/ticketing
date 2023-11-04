@@ -2,9 +2,9 @@ import express from "express";
 import { Request, Response, NextFunction} from "express";
 import { body } from "express-validator";
 import { User } from "../models/user";
-import { BadRequestError } from "../errors/bad-request-error";
+import { BadRequestError } from "@tky-services/common";
 import jwt from "jsonwebtoken"; // import the whole module as an object
-import { validateRequest } from "../middlewares/validate-request";
+import { validateRequest } from "@tky-services/common";
 import { Password } from "../services/password";
 
 

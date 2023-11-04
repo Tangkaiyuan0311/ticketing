@@ -1,8 +1,8 @@
 // browser may come to confirm if a user is currently logged in
 // examine the cookies of request
 import express from "express";
-import { requireAuth } from "../middlewares/require-auth";
-import { currentUser } from "../middlewares/current-user";
+import { requireAuth } from "@tky-services/common";
+import { currentUser } from "@tky-services/common";
 
 const router = express.Router();
 

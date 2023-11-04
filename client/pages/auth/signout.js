@@ -11,9 +11,9 @@ export default () => {
         }
     );
 
+    // This will run once after the initial render
     useEffect(() => {
         doRequest();
-        // console.log("This will run once for the initial render.");
       }, []);
 
     return <div>Signing you out...</div>

@@ -1,8 +1,0 @@
-common error response:
-
-{
-    errors: {
-        message: string,
-        field?: string
-    }[]
-}
