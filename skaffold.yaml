@@ -29,3 +29,13 @@ build:
             dest: .
       docker:
         dockerfile: Dockerfile
+    - image: tky12314/tickets
+      context: tickets # the directory that is monitored for file update
+      sync:
+        manual:
+          # skaffold will directly copy those matched, updated file into the base directory of container of runing pod.
+          # For other updated and unmatched files, rebuild the image, deploy and service
+          - src: "src/**/*.ts"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
