@@ -26,6 +26,8 @@ spec:
           image: tky12314/tickets # image, if tagged latest: k8s will look into the dockerhub by default
           #imagePullPolicy: Never # ensure that Kubernetes will use the image built locally from your image cache instead of attempting to pull from a registry
           env: # read env from k8s secret
+            - name: MONGO_URI
+              value: "mongodb://tickets-mongo-srv:27017/tickets"
             - name: JWT_KEY # var name
               valueFrom:
                 secretKeyRef:

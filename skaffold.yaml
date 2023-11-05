@@ -13,7 +13,7 @@ build:
       context: auth # the directory that is monitored for file update
       sync:
         manual:
-          # skaffold will directly copy those matched, updated file into the base directory of container of runing pod.
+          # skaffold will directly copy those matched, updated file into the base directory of container of runing pod, nodemon will be triggered
           # For other updated and unmatched files, rebuild the image, deploy and service
           - src: "src/**/*.ts"
             dest: .
@@ -23,7 +23,7 @@ build:
       context: client # the directory that is monitored for file update
       sync:
         manual:
-          # skaffold will directly copy those matched, updated file into the base directory of container of runing pod.
+          # skaffold will directly copy those matched, updated file into the base directory of container of runing pod, nodemon will be triggered
           # For other updated and unmatched files, rebuild the image, deploy and service
           - src: "**/*.js"
             dest: .
@@ -33,7 +33,7 @@ build:
       context: tickets # the directory that is monitored for file update
       sync:
         manual:
-          # skaffold will directly copy those matched, updated file into the base directory of container of runing pod.
+          # skaffold will directly copy those matched, updated file into the base directory of container of runing pod, nodemon will be triggered
           # For other updated and unmatched files, rebuild the image, deploy and service
           - src: "src/**/*.ts"
             dest: .
