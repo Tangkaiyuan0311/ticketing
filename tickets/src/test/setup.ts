@@ -2,11 +2,12 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { app } from '../app';
 import request from "supertest"; 
+import jwt from 'jsonwebtoken';
 
 let mongo: MongoMemoryServer;
 
 declare global {
-  var signup: (email: string, password: string) => Promise<string[]>;
+  var signin: () => string[];
 }
 
 // hook before all tests are started
@@ -40,15 +41,27 @@ afterAll(async () => {
 
 // export a helper under test environment
 // sign up a fake user and retrieve the value of the Set-Cookie header from the response
-global.signup = async(email: string, password: string) => {
-  const response = await request(app)
-  .post("/api/users/signup")
-  .send({
-      email,
-      password
-  })
-  .expect(201);
+// should not directly contact auth service
+// no inter-services communication
+global.signin = () => {
+  // build a JWT payload
+  const payload = {
+    id: '1lk24j124l',
+    email: 'test@test.com'
+  };
+  // create th signed JWT
+  const token = jwt.sign(payload, process.env.JWT_KEY!);
+  // build session object: {jwt: myJwt}
+  const session = { jwt: token };
 
-  const cookie = response.get("Set-Cookie");
-  return cookie;
+  // simulate what cookies session middleware do
+
+  // Turn that session into JSON
+  const sessionJSON = JSON.stringify(session);
+
+  // Take JSON and encode it as base64
+  const base64 = Buffer.from(sessionJSON).toString('base64');
+
+  // build the cookie
+  return [`session=${base64}`];
 }

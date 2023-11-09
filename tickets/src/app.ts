@@ -4,9 +4,9 @@
 import express from "express";
 import { json } from "body-parser";
 
-import { errorHandler } from "@tky-services/common";
-import { RouteNotFoundError } from "@tky-services/common";
 import cookieSession from 'cookie-session';
+import { createTicketRouter } from "./routes/new";
+import { currentUser, errorHandler, RouteNotFoundError,  } from "@tky-services/common";
 
 const app = express();
 
@@ -23,6 +23,10 @@ app.use(cookieSession({
     secure: process.env.NODE_ENV !== "test" // disable https requirement for testing environment
     // secure: true
 }));
+
+app.use(currentUser);
+
+app.use(createTicketRouter);
 
 
 
