@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { Password } from "../services/password";
 
 // interface that describe the input structure of a user document
-interface userAttrs {
+interface UserAttrs {
     email: string,
     password: string
 }
@@ -15,7 +15,7 @@ interface UserDoc extends mongoose.Document {
 
 // interface that tell tsc about structure of the user model (the model that has been added static method)
 interface UserModel extends mongoose.Model<UserDoc> {
-    addUser(attrs: userAttrs): UserDoc;
+    addUser(attrs: UserAttrs): UserDoc;
 }
 
 // define user schema
@@ -71,7 +71,7 @@ userSchema.pre("save", async function(next){
 
 // add static saving functions to your model
 // why use it: enforce ts type check for input
-userSchema.statics.addUser = (attrs: userAttrs) => {
+userSchema.statics.addUser = (attrs: UserAttrs) => {
     return new User(attrs);
 };
 
