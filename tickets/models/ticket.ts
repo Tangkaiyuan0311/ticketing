@@ -50,6 +50,7 @@ const ticketSchema = new mongoose.Schema<TicketDoc>(
                 // rename some database dependent property
                 ret.id = ret._id; // value of the old property is copied (by value and by referenec) to the new property.
                 delete ret._id; // delete the old property
+                delete ret.__v;
             }
         }
     }
