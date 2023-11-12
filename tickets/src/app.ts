@@ -8,6 +8,7 @@ import cookieSession from 'cookie-session';
 import { createTicketRouter } from "./routes/new";
 import { currentUser, errorHandler, RouteNotFoundError,  } from "@tky-services/common";
 import { showTicketRouter } from "./routes/show";
+import { indexTicketRouter } from "./routes";
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(currentUser);
 
 app.use(createTicketRouter);
 app.use(showTicketRouter);
+app.use(indexTicketRouter);
 
 
 
