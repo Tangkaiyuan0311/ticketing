@@ -46,7 +46,7 @@ afterAll(async () => {
 global.signin = () => {
   // build a JWT payload
   const payload = {
-    id: '1lk24j124l',
+    id: 'fakeUserId',
     email: 'test@test.com'
   };
   // create th signed JWT

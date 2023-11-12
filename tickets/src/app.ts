@@ -7,6 +7,7 @@ import { json } from "body-parser";
 import cookieSession from 'cookie-session';
 import { createTicketRouter } from "./routes/new";
 import { currentUser, errorHandler, RouteNotFoundError,  } from "@tky-services/common";
+import { showTicketRouter } from "./routes/show";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(cookieSession({
 app.use(currentUser);
 
 app.use(createTicketRouter);
+app.use(showTicketRouter);
 
 
 

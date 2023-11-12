@@ -5,7 +5,6 @@ import { Ticket } from "../../models/ticket";
 
 const router = express.Router();
 
-
 // create a new ticket from authenticated user
 router.post("/api/tickets", requireAuth, 
     // express validator, append validation error to request
@@ -30,7 +29,6 @@ router.post("/api/tickets", requireAuth,
         res.status(201).send(ticket);
     }
 );
-
 
 export {router as createTicketRouter};
 
