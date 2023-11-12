@@ -27,6 +27,13 @@ spec:
                 name: auth-srv
                 port:
                   number: 3000
+          - path: /api/tickets/?(.*) # url reach out from browser,
+            pathType: ImplementationSpecific # Prefix if no reg in path
+            backend: # cluster ip end (clusterIP service name, exposed port number)
+              service:
+                name: tickets-srv
+                port:
+                  number: 3000
           - path: /?(.*) # url reach out from browser,
             pathType: ImplementationSpecific # Prefix if no reg in path
             backend: # cluster ip end (clusterIP service name, exposed port number)
